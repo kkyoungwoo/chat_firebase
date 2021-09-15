@@ -9,11 +9,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 100vh;
-}
-
-.auth-wrapper form {
     width: 375px;
+    min-height: 100vh;
     margin: 0 auto;
 }
 
