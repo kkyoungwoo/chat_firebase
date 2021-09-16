@@ -7,9 +7,16 @@ import RegisterPage from './components/RegisterPage/RegisterPage'
 
 import firebase from './firebase';
 
+import { useDispatch, useSelector } from 'react-redux'
+
+import {setUser} from './redux/actions/user_action';
+
 function App() {
 
   let history = useHistory()
+  let dispatch = useDispatch()
+  const isLoading = useSelector(state => state.user.isLoading)
+
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
@@ -17,6 +24,7 @@ function App() {
       //로그인이 된 상태
       if(user){
         history.push("/")
+        dispatch(setUser(user))
       }else{
         //로그인이 되지 않은 상태
         history.push("/loginpage")
@@ -24,13 +32,19 @@ function App() {
     })
   }, [])
 
-  return (
+  if(isLoading){
+    return(
+      <div>로딩중입니다.</div>
+    )
+  }else{
+    return (
       <Switch>
         <Route exact path="/" component={ChatPage} />
         <Route exact path="/loginpage" component={LoginPage} />
         <Route exact path="/registerpage" component={RegisterPage} />
       </Switch>
-  )
+    ) 
+  }
 }
 
 export default App;
