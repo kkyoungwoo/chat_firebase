@@ -9,7 +9,7 @@ import firebase from './firebase';
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import {setUser} from './redux/actions/user_action';
+import { setUser,clearUser } from './redux/actions/user_action';
 
 function App() {
 
@@ -28,6 +28,7 @@ function App() {
       }else{
         //로그인이 되지 않은 상태
         history.push("/loginpage")
+        dispatch(clearUser())
       }
     })
   }, [])
